@@ -1,2 +1,682 @@
-# TechnicalDost
-Analyst
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DataMaster Pro | Digital Analytics Resources</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Exo 2', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: #ffffff;
+            overflow-x: hidden;
+            min-height: 100vh;
+            background-attachment: fixed;
+        }
+        
+        .cyber-border {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1000;
+            border: 2px solid #0ff;
+            box-shadow: 0 0 20px #0ff, inset 0 0 20px #0ff;
+            animation: pulse 8s infinite;
+        }
+        
+        .grid-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 255, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 30px 30px;
+            z-index: -1;
+            pointer-events: none;
+        }
+        
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background-color: rgba(0, 255, 255, 0.5);
+            border-radius: 50%;
+            animation: float 15s linear infinite;
+        }
+        
+        /* Header styles */
+        .scrolling-header {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 12px 0;
+            overflow: hidden;
+            white-space: nowrap;
+            position: relative;
+            border-bottom: 1px solid #0ff;
+            box-shadow: 0 5px 15px rgba(0, 255, 255, 0.2);
+        }
+        
+        .scrolling-text {
+            display: inline-block;
+            padding-left: 100%;
+            animation: scroll 30s linear infinite;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 18px;
+            text-shadow: 0 0 10px currentColor;
+        }
+        
+        .scrolling-text span {
+            margin: 0 25px;
+            padding: 5px 15px;
+            border-radius: 4px;
+        }
+        
+        /* Navigation */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            background: rgba(10, 15, 30, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 255, 255, 0.3);
+        }
+        
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 28px;
+            font-weight: 900;
+            color: #0ff;
+            text-shadow: 0 0 15px #0ff;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+        
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            padding: 8px 15px;
+            border-radius: 4px;
+        }
+        
+        .nav-links a:hover {
+            color: #0ff;
+            text-shadow: 0 0 10px #0ff;
+            background: rgba(0, 255, 255, 0.1);
+        }
+        
+        .search-cart {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .search-box {
+            display: flex;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 25px;
+            padding: 8px 15px;
+            border: 1px solid rgba(0, 255, 255, 0.3);
+        }
+        
+        .search-box input {
+            background: transparent;
+            border: none;
+            color: #fff;
+            outline: none;
+            width: 180px;
+        }
+        
+        .search-box button {
+            background: transparent;
+            border: none;
+            color: #0ff;
+            cursor: pointer;
+        }
+        
+        .cart-icon {
+            position: relative;
+            font-size: 22px;
+            color: #fff;
+            cursor: pointer;
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #f00;
+            color: #fff;
+            font-size: 12px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        /* Main content */
+        .container {
+            max-width: 1400px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+        
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 32px;
+            margin-bottom: 30px;
+            text-align: center;
+            color: #0ff;
+            text-shadow: 0 0 15px #0ff;
+        }
+        
+        /* Products grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        
+        .product-card {
+            background: rgba(20, 25, 45, 0.8);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            position: relative;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 255, 255, 0.3);
+            border-color: #0ff;
+        }
+        
+        .product-image {
+            position: relative;
+            height: 220px;
+            overflow: hidden;
+        }
+        
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 0.3s ease;
+        }
+        
+        .product-image .gif-preview {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .product-card:hover .gif-preview {
+            opacity: 1;
+        }
+        
+        .product-card:hover .static-image {
+            opacity: 0;
+        }
+        
+        .discount-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: #ff0066;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 14px;
+            box-shadow: 0 0 10px rgba(255, 0, 102, 0.7);
+        }
+        
+        .product-info {
+            padding: 20px;
+        }
+        
+        .product-title {
+            font-size: 18px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        .product-rating {
+            color: #ffcc00;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+        
+        .product-price {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .original-price {
+            text-decoration: line-through;
+            color: #aaa;
+        }
+        
+        .discount-price {
+            font-size: 22px;
+            color: #0ff;
+            font-weight: 700;
+        }
+        
+        .product-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-buy {
+            background: linear-gradient(45deg, #ff0066, #ff00ff);
+            color: white;
+            flex: 1;
+        }
+        
+        .btn-buy:hover {
+            background: linear-gradient(45deg, #ff00ff, #ff0066);
+            box-shadow: 0 0 15px rgba(255, 0, 255, 0.5);
+        }
+        
+        .btn-cart {
+            background: linear-gradient(45deg, #00ccff, #00ffcc);
+            color: #000;
+            flex: 1;
+        }
+        
+        .btn-cart:hover {
+            background: linear-gradient(45deg, #00ffcc, #00ccff);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+        }
+        
+        /* Recent purchases */
+        .recent-purchases {
+            position: fixed;
+            left: 20px;
+            bottom: 20px;
+            background: rgba(10, 15, 30, 0.9);
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            max-width: 300px;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+        }
+        
+        .recent-purchases h3 {
+            font-size: 16px;
+            margin-bottom: 10px;
+            color: #0ff;
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        .purchase-item {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 14px;
+        }
+        
+        .purchase-item:last-child {
+            border-bottom: none;
+        }
+        
+        /* Animations */
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 0.7; }
+            50% { opacity: 1; }
+            100% { opacity: 0.7; }
+        }
+        
+        @keyframes float {
+            0% { 
+                transform: translateY(100vh) rotate(0deg); 
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% { 
+                transform: translateY(-100px) rotate(360deg); 
+                opacity: 0;
+            }
+        }
+        
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .navbar {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .recent-purchases {
+                position: relative;
+                left: 0;
+                bottom: 0;
+                max-width: 100%;
+                margin: 30px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="cyber-border"></div>
+    <div class="grid-background"></div>
+    <div class="particles" id="particles"></div>
+
+    <!-- Scrolling header -->
+    <div class="scrolling-header">
+        <div class="scrolling-text">
+            <span style="color: #ff0066;">Power BI Analyst</span>
+            <span style="color: #00ffcc;">Data Analyst</span>
+            <span style="color: #ffcc00;">MIS Executive</span>
+            <span style="color: #cc00ff;">Power BI Engineer</span>
+            <span style="color: #00ccff;">Backend Executive</span>
+            <span style="color: #ff6600;">The Dax Magician</span>
+            <span style="color: #ff00ff;">The Chart Designer</span>
+            <span style="color: #66ff00;">The Visualizer</span>
+            <span style="color: #ff3366;">The Data Artist</span>
+            <span style="color: #00ff99;">The Designer Thinker</span>
+            <span style="color: #ffcc00;">The Query Master</span>
+            <span style="color: #9966ff;">The Dax Hacker</span>
+            <span style="color: #00ccff;">The Developer</span>
+            <span style="color: #ff0066;">The Crafter</span>
+            <span style="color: #00ffcc;">The Power BI Engineer</span>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo">DataMaster Pro</div>
+        <div class="nav-links">
+            <a href="#"><i class="fas fa-home"></i> Home</a>
+            <a href="#"><i class="fas fa-briefcase"></i> Projects</a>
+            <a href="#"><i class="fas fa-graduation-cap"></i> Tutorials</a>
+            <a href="#"><i class="fas fa-address-card"></i> Contact Us</a>
+        </div>
+        <div class="search-cart">
+            <div class="search-box">
+                <input type="text" placeholder="Search products...">
+                <button><i class="fas fa-search"></i></button>
+            </div>
+            <div class="cart-icon">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-count">3</span>
+            </div>
+            <button class="btn" style="background: linear-gradient(45deg, #ff0066, #ff00ff); color: white;">
+                <i class="fab fa-google"></i> Login
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main content -->
+    <div class="container">
+        <h2 class="section-title">Premium Digital Analytics Resources</h2>
+        
+        <div class="products-grid">
+            <!-- Product 1 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1591696205602-2f950c417dad?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Power BI Dashboard" class="static-image">
+                    <img src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExbW5qZ3VkY2F0bGd1cGg0Z2R0eG1ydGJjdGxqNnFqZ2JmZ2JmYnlmbiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3o7TKsQ8UQ4l4LhCz6/giphy.webp" alt="Power BI GIF" class="gif-preview">
+                    <div class="discount-badge">35% OFF</div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Advanced Power BI Dashboard</h3>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <span>(4.7)</span>
+                    </div>
+                    <div class="product-price">
+                        <span class="original-price">$49.99</span>
+                        <span class="discount-price">$32.49</span>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn btn-buy">Buy Now</button>
+                        <button class="btn btn-cart">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Product 2 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Excel Dashboard" class="static-image">
+                    <img src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExa2FqZ2R6Z2VjN2RjY2RjY2RjY2RjY2RjY2RjY2RjY2RjY2RjY2RjY2RjY2RjY2RjY2RjY2RjZTc2NyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3o7TKsQ8UQ4l4LhCz6/giphy.webp" alt="Excel GIF" class="gif-preview">
+                    <div class="discount-badge">25% OFF</div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Excel Financial Model Template</h3>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <span>(4.9)</span>
+                    </div>
+                    <div class="product-price">
+                        <span class="original-price">$39.99</span>
+                        <span class="discount-price">$29.99</span>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn btn-buy">Buy Now</button>
+                        <button class="btn btn-cart">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Product 3 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Data Visualization" class="static-image">
+                    <img src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExa2FqZ2R6Z2VjN2RjY2RjY2RjY2RjY2RjY2RjY2RjY2RjY2RjY2RjY2RjY2RjY2RjY2RjY2RjZTc2NyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3o7TKsQ8UQ4l4LhCz6/giphy.webp" alt="Data Visualization GIF" class="gif-preview">
+                    <div class="discount-badge">40% OFF</div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Data Visualization Pack</h3>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <span>(4.2)</span>
+                    </div>
+                    <div class="product-price">
+                        <span class="original-price">$59.99</span>
+                        <span class="discount-price">$35.99</span>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn btn-buy">Buy Now</button>
+                        <button class="btn btn-cart">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent purchases -->
+    <div class="recent-purchases">
+        <h3><i class="fas fa-bolt"></i> Recent Purchases</h3>
+        <div class="purchase-item">Rahul purchased "Finance Dashboard" 30 mins ago</div>
+        <div class="purchase-item">Priya purchased "Sales Analytics" 15 mins ago</div>
+        <div class="purchase-item">Amit purchased "HR Dashboard" 45 mins ago</div>
+        <div class="purchase-item">Sneha purchased "Marketing Report" 5 mins ago</div>
+    </div>
+
+    <script>
+        // Create particles for background
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const numberOfParticles = 50;
+            
+            for (let i = 0; i < numberOfParticles; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random properties
+                const size = Math.random() * 3 + 1;
+                const posX = Math.random() * 100;
+                const delay = Math.random() * 15;
+                const duration = Math.random() * 10 + 15;
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${posX}vw`;
+                particle.style.animationDelay = `${delay}s`;
+                particle.style.animationDuration = `${duration}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            
+            // Add to cart functionality
+            const cartButtons = document.querySelectorAll('.btn-cart');
+            const cartCount = document.querySelector('.cart-count');
+            let count = 3;
+            
+            cartButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    count++;
+                    cartCount.textContent = count;
+                    
+                    // Show timer notification (simplified)
+                    alert("Added to cart! You have 5 minutes to complete your purchase. Hurry up!");
+                });
+            });
+            
+            // Buy now functionality
+            const buyButtons = document.querySelectorAll('.btn-buy');
+            buyButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    alert("Proceeding to payment options...");
+                });
+            });
+            
+            // Simulate recent purchases updates
+            const purchases = [
+                "Vikram purchased 'Supply Chain Dashboard'",
+                "Neha purchased 'Inventory Tracker'",
+                "Raj purchased 'Customer Analytics'",
+                "Anjali purchased 'SEO Report Template'",
+                "Karan purchased 'Social Media Dashboard'"
+            ];
+            
+            const times = ["5 mins ago", "12 mins ago", "20 mins ago", "28 mins ago", "35 mins ago"];
+            
+            let purchaseIndex = 0;
+            setInterval(() => {
+                const purchaseItems = document.querySelectorAll('.purchase-item');
+                
+                // Shift items up
+                for (let i = 0; i < purchaseItems.length - 1; i++) {
+                    purchaseItems[i].textContent = purchaseItems[i+1].textContent;
+                }
+                
+                // Add new item at the bottom
+                purchaseItems[purchaseItems.length - 1].textContent = 
+                    `${purchases[purchaseIndex % purchases.length]} ${times[purchaseIndex % times.length]}`;
+                
+                purchaseIndex++;
+            }, 10000); // Update every 10 seconds
+        });
+        
+        // Disable right-click
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            alert('Right-click is disabled to protect our content.');
+        });
+        
+        // Disable F12, Ctrl+Shift+I, Ctrl+U
+        document.addEventListener('keydown', function(e) {
+            if (
+                e.key === 'F12' ||
+                (e.ctrlKey && e.shiftKey && e.key === 'I') ||
+                (e.ctrlKey && e.shiftKey && e.key === 'C') ||
+                (e.ctrlKey && e.key === 'U')
+            ) {
+                e.preventDefault();
+                alert('Developer tools are disabled for security reasons.');
+            }
+        });
+    </script>
+</body>
+</html>
